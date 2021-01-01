@@ -1,0 +1,39 @@
+// leetcode link https://leetcode.com/explore/challenge/card/january-leetcoding-challenge-2021/579/week-1-january-1st-january-7th/3589/
+
+
+import java.util.*;
+class Solution {
+    public boolean canFormArray(int[] arr, int[][] pieces) {
+        
+        Hashtable<Integer, Integer> ht=new Hashtable<>();
+        
+        for(int i=0; i<arr.length; i++){
+            ht.put(arr[i], i);
+        }
+        
+        
+        for(int i=0;  i<pieces.length; i++){
+            if(pieces[i].length>1){
+                if(!(ht.containsKey(pieces[i][0]))){
+                    return false;
+                }
+                int ind=ht.get(pieces[i][0]);
+                for(int j=1; j<pieces[i].length; j++){
+                    if(!(ht.containsKey(pieces[i][j]))){
+                        return false;
+                    }
+                    
+                    if(ht.get(pieces[i][j])!=ind+1){
+                        return false;
+                    }
+                    else{
+                        ind++;
+                    }
+                }
+            }
+            else if(!ht.containsKey(pieces[i][0]))
+                return false;
+        }
+        return true;
+    }
+}
