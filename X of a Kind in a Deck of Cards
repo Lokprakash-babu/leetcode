@@ -1,0 +1,16 @@
+//problem link: https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards/
+
+bool hasGroupsSizeX(vector<int>& deck) {
+    unordered_map<int, int>cards;
+    for(auto i: deck){
+        cards[i]++;
+    }
+    int currGcd=__gcd(cards[deck[0]], cards[deck[0]]);
+    for(auto i: cards){
+        currGcd=__gcd(currGcd, i.second);
+    }
+    return currGcd==1?false:true;
+}
+    
+//Time complexity: O(nlogn)
+//space complexity: O(n)
