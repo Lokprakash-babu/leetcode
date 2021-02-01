@@ -1,0 +1,25 @@
+//Problem link: https://leetcode.com/problems/valid-mountain-array/
+
+bool validMountainArray(vector<int>& arr) {
+        bool decrease=false, rise=false;
+        
+        for(int i=1; i<arr.size(); i++){
+            if(arr[i]>arr[i-1]){
+                if(decrease){
+                    return false;
+                }
+                rise=true;
+                continue;
+            }
+            else if(arr[i]<arr[i-1]){
+                decrease=true;
+            }
+            else if(arr[i]==arr[i-1]){
+                return false;
+            }
+        }
+        return (rise && decrease)?true:false;
+    }
+    
+ //Time complexity: O(n)
+ //space complexity: O(1)
