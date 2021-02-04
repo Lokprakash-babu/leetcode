@@ -1,0 +1,27 @@
+//Problem link: https://leetcode.com/problems/longest-harmonious-subsequence/
+
+
+int findLHS(vector<int>& nums) {
+  unordered_set<int>dup;
+  vector<int>newVect;
+  unordered_map<int, int>hash;
+  for(int i=0; i<nums.size(); i++){
+      if(dup.count(nums[i])==0){
+          newVect.push_back(nums[i]);
+          dup.insert(nums[i]);
+          hash[nums[i]]++;
+      }
+      else{
+          hash[nums[i]]++;
+      }
+  }
+  int maxLength=0;
+  sort(newVect.begin(), newVect.end());
+  for(int i=1; i<newVect.size(); i++){
+      if((newVect[i]-newVect[i-1])==1){
+          int count1=hash[newVect[i]], count2=hash[newVect[i-1]];
+          maxLength=max(maxLength, count1+count2);
+      }
+  }
+  return maxLength;
+}
