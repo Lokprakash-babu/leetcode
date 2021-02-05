@@ -1,0 +1,50 @@
+//Problem Link: https://leetcode.com/problems/simplify-path/
+
+    string simplifyPath(string path) {
+        stack<string>ans;
+        ans.push("/");
+        string construct;
+        for(int i=1; i<path.length(); i++){
+            if(path[i]=='/'){
+                if(construct==".."){
+                    if(ans.size()!=1){
+                        ans.pop();
+                    }
+                }
+                else if(construct=="."){
+                    //do nothing
+                }
+                else if(construct.length()!=0){
+                    ans.push(construct);
+                }
+                construct="";
+                
+            }
+            else{
+                construct+=path[i];
+            }
+            
+        }
+        
+        if(construct.length()!=0){
+            if(construct==".."){
+                if(ans.size()!=1)
+                ans.pop();
+            }
+            else if(construct!="."){
+                ans.push(construct);
+            }
+        }
+        string absPath=ans.top();
+        ans.pop();
+        while(ans.empty()==false){
+            string p=ans.top();
+            if(p!="/")
+            absPath=p+"/"+absPath;
+            else
+                absPath=p+absPath;
+            ans.pop();
+        }
+        
+        return absPath;
+    }
