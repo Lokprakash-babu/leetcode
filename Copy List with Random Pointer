@@ -1,0 +1,28 @@
+
+//Problem link: https://leetcode.com/problems/copy-list-with-random-pointer
+
+Node* copyRandomList(Node* head) {
+        if(head==NULL){
+            return head;
+        }
+        unordered_map<Node*, Node*>nodes;
+        Node *it=head;
+        Node *dummyHead=new Node(head->val);
+        Node *prev=dummyHead;
+        nodes[head]=dummyHead;
+        head=head->next;
+        while(head!=NULL){
+            Node *newHead=new Node(head->val);
+            prev->next=newHead;
+            nodes[head]=newHead;
+            prev=newHead;
+            head=head->next;
+        }
+        prev->next=NULL;
+        while(it!=NULL){
+            Node *rand=it->random;
+            nodes[it]->random=nodes[rand];
+            it=it->next;
+        }
+        return dummyHead;
+    }
