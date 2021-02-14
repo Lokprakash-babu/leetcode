@@ -1,0 +1,40 @@
+//Problem link https://leetcode.com/problems/is-graph-bipartite/
+
+class Solution {
+public:
+    bool dfs(int v, int c, int vis[], bool col[], vector<int>adj[]){
+        vis[v]=1;
+        col[v]=c;
+        for(auto i: adj[v]){
+            if(vis[i]==0){
+                if(!dfs(i, !c, vis, col, adj)){
+                    return false;
+                }
+            }    
+            else if(col[v]==col[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+    bool isBipartite(vector<vector<int>>&graph) {
+        int n=graph.size();
+        vector<int>adj[n];
+        for(int i=0; i<n; i++){
+            for(int j=0; j<graph[i].size(); j++){
+                // cout<<"gr "<<graph[j]<<endl;
+                adj[i].push_back(graph[i][j]);
+            }
+        }
+        int vis[1000]={0};
+        bool col[1000]={false};
+        for(int i=0; i<n; i++){
+            if(vis[i]==0){
+                if(!dfs(i, !col[i], vis, col, adj)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
