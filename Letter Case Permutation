@@ -1,0 +1,25 @@
+//Problem link: https://leetcode.com/problems/letter-case-permutation/description/
+
+class Solution {
+    vector<string>ans;
+public:
+    void strings(string s, string curr, int index){
+        if(curr.length()==s.length()){
+            ans.push_back(curr);
+            return ;
+        }
+        if(s[index]>='0' && s[index]<='9'){
+            strings(s, curr+s[index], index+1);
+        }
+        else{
+            strings(s, curr+(char)(toupper(s[index])), index+1);
+            strings(s, curr+(char)(tolower(s[index])), index+1);
+        }
+        return;
+        
+    }
+    vector<string> letterCasePermutation(string S) {
+        strings(S, "", 0);
+        return ans;
+    }
+};
