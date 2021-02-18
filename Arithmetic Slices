@@ -1,0 +1,43 @@
+//problem link: https://leetcode.com/problems/arithmetic-slices/solution/
+
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& a) {
+        if(a.size()<3){return 0;}
+        
+        int ans=0;
+        int left=0, right=2;
+        int diff=a[1]-a[left];
+        
+        while(right<a.size()){
+            if((a[right]-a[right-1])!=diff){
+                if(right-left>=3){
+                    if(right-1!=left+2){
+                        int n=right-1-(left+2)+1;
+                        ans+=n*(n+1)/2;
+                    }
+                    else{
+                        ans+=1;
+                    }
+                    diff=a[right]-a[right-1];
+                    left=right-1;
+                }
+                else{
+                    left=right-1;
+                    diff=a[right]-a[right-1];
+                }
+            }
+            else{
+                right++; 
+            }
+        }
+        if(right-1!=left+2){
+            int n=right-1-(left+2)+1;
+            ans+=n*(n+1)/2;
+        }
+        else{
+            ans+=1;
+        }
+        return ans;
+    }
+};
