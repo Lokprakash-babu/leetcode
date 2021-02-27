@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        bool sign=((dividend<0) ^ (divisor<0))?true:false;
+        long num=labs(dividend);
+        long deno=labs(divisor);
+        long ans=exp(log(num)-log(deno));
+        if(ans>INT_MAX){
+            return sign?INT_MIN:INT_MAX;
+        }
+        return sign?-ans:ans;
+    }
+};
