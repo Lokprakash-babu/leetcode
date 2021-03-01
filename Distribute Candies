@@ -1,0 +1,30 @@
+//Problem link: https://leetcode.com/problems/distribute-candies/
+
+cpp
+
+class Solution {
+public:
+    int distributeCandies(vector<int>& candyType) {
+        unordered_set<int>s;
+        for(auto i: candyType){
+            s.insert(i);
+        }
+        int n=candyType.size();
+        if(s.size()>=n/2) return n/2;
+        if(s.size()<n) return s.size();
+        return 0;
+    }
+};
+
+
+Java
+
+class Solution {
+    public int distributeCandies(int[] candyType) {
+        Set<Integer>candies=new HashSet<>();
+        for(int i: candyType){
+            candies.add(i);
+        }
+        return Math.min(candies.size(), candyType.length/2);
+    }
+}
