@@ -1,0 +1,31 @@
+//Link: https://leetcode.com/problems/perfect-squares/
+
+class Solution {
+    unordered_map<int, int>ma;
+    vector<int>numbers;
+public:
+    int topDown(int n){
+       if(n==0){
+           return 0;
+       }   
+        
+        if(ma.find(n)!=ma.end()){
+            return ma[n];
+        }
+        
+        ma[n]=INT_MAX;
+        for(auto i: numbers){
+            if(i<=n){
+                int val=1+topDown(n-i);
+                ma[n]=min(val, ma[n]);
+            }
+        }
+        return ma[n];
+    }
+    int numSquares(int n) {
+       for(int i=1; i*i<=n; i++){
+           numbers.push_back(i*i);
+       }
+        return topDown(n);
+    }
+};
