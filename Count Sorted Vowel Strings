@@ -1,0 +1,22 @@
+//Link: https://leetcode.com/problems/count-sorted-vowel-strings/
+
+class Solution {
+    int count=0;
+    vector<char>vow={'a', 'e', 'i', 'o', 'u'};
+public:
+    void recur(int n, int curr, char s){
+        if(curr==n){
+            count++;
+            return;
+        }
+        for(auto i: vow){
+            if(s==' ' || s<=i){
+                recur(n,curr+1, i);
+            }
+        }
+    }
+    int countVowelStrings(int n) {
+        recur(n,0,' ');
+        return count;
+    }
+};
