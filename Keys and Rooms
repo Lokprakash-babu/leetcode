@@ -1,0 +1,28 @@
+//Problem link: https://leetcode.com/problems/keys-and-rooms/
+
+
+class Solution {
+    public static void helper(int i, boolean[] vis, List<List<Integer>> rooms){
+        if(vis[i])
+            return;
+        vis[i]=true;
+        for(int j=0; j<rooms.get(i).size(); j++){
+            if(!vis[rooms.get(i).get(j)]){
+                helper(rooms.get(i).get(j), vis, rooms);
+            }
+        }
+    }
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        boolean[] visited=new boolean[rooms.size()];
+        for(int i=0; i<visited.length; i++){
+            visited[i]=false;
+        }
+        helper(0, visited, rooms);
+        for(int i=0; i<visited.length; i++){
+            if(!visited[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+}
