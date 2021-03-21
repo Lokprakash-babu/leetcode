@@ -1,0 +1,65 @@
+//Link: https://leetcode.com/problems/reordered-power-of-2/
+
+class Solution {
+    private static int log2(int x){
+        return (int)(Math.log(x)/Math.log(2));
+    }
+    
+    public boolean reorderedPowerOf2(int n) {
+        if(n==1000000000)
+            return false;
+        if(n==1)
+            return true;
+        int pow2=1;
+        int val=(int)Math.pow(2, pow2);
+        
+        int inner=n;
+        Map<Integer, Integer>countN=new HashMap<Integer, Integer>();
+        while(inner>0){
+            Integer count=new Integer(0);
+            Integer key=new Integer(inner%10);
+            if(countN.containsKey(key)){
+                count=countN.get(key)+1;
+                countN.put(key, count);
+            }
+            else{
+                countN.put(key, 1);
+            }
+            inner/=10;
+        }
+        while(Math.floor(Math.log10(val)+1)<=Math.floor(Math.log10(n)+1)){
+
+            Map<Integer, Integer>countPow2=new HashMap<Integer, Integer>();
+            
+            pow2++;
+            
+            // System.out.println("val "+val);
+        
+            while(val>0){
+                Integer count=0;
+                Integer key=new Integer(val%10);
+                if(countPow2.containsKey(key)){
+                    count=countPow2.get(key)+1;
+                    countPow2.put(key, count);
+                }
+                else{
+                    countPow2.put(key, 1);
+                }
+                val/=10;
+            }
+            
+            
+            if(countN.equals(countPow2)){
+                return true;
+            }
+            val=(int)Math.pow(2, pow2);
+            // System.out.println("first map "+countN);
+            // System.out.println("second map "+countPow2);
+            // System.out.println("checking "+countN.equals(countPow2));
+            
+        }
+        return false;
+        
+    }
+    
+}
